@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRecipeRequest;
@@ -10,10 +10,12 @@ use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
 {
+    private CloudController $cloudController;
     private RecipeService $recipeService;
-    public function __construct(RecipeService $recipeService)
+    public function __construct(RecipeService $recipeService, CloudController $cloudController)
     {
         $this->recipeService = $recipeService;
+        $this->cloudController = $cloudController;
     }
 
     public function index(Request $request)
@@ -25,10 +27,11 @@ class RecipeController extends Controller
        return $this->recipeService->show($id);
     }
 
-    public function create(StoreRecipeRequest $request){
-        // return Auth::guard('api')->user()->id;
-
-       $this->recipeService->store($request);
+    public function store(StoreRecipeRequest $request){
+     
+        $image_url = $this->cloudController->upload($request);
+       
+       return $this->recipeService->store($request, $image_url);
     }
 
     public function fetchIP(Request $request)

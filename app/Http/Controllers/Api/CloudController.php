@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreRecipeRequest;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 use Illuminate\Http\Request;
 
 class CloudController extends Controller
 {
-    public function upload(Request $request){
+    public function upload(StoreRecipeRequest $request){
         // dd($request);
 
         $path = "laravel-cloud";
