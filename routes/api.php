@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CloudController;
 use App\Http\Controllers\Auth\ApiAuthController;
 use App\Http\Controllers\Api\FriendsController;
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -31,4 +32,6 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/friendRequest',[FriendsController::class,'friendRequest'])->name('friendRequest.api');
     Route::post('/acceptFriendRequest',[FriendsController::class,'acceptFriendRequest'])->name('acceptFriendRequest.api');
     Route::get('/getFriends',[FriendsController::class,'getFriends'])->name('getFriends.api');
+
+    Route::post('/upload',[CloudController::class,'upload']);
 });
